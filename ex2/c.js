@@ -1,0 +1,1 @@
+exports = "This is c module!";
