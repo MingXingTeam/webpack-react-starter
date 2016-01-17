@@ -1,4 +1,8 @@
 # webpack-react-starter
+ 
+## please open an issue if you have any problems!! 
+
+## temp info,please ignore! 
  file-loader
  plugins: [
     new StatsPlugin('stats.json', {
