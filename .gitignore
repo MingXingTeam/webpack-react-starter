@@ -1,1 +1,4 @@
 node_modules
+assets
+build
+webpack-assets.json
