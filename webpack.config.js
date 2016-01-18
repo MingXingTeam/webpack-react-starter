@@ -1,13 +1,15 @@
 'use strict';
+//solve unexpected-token problem
+//@see http://stackoverflow.com/questions/33460420/babel-loader-jsx-syntaxerror-unexpected-token?answertab=votes#tab-top
 
 //temp: windows环境不支持NODE_ENV变量
-process.env.NODE_ENV = 'development';
-// process.env.NODE_ENV = 'production';
+// process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'production';
 
 var webpack = require('webpack');
 var path = require('path');
 var fs = require('fs');
-
+//@see https://www.npmjs.com/package/assets-webpack-plugin
 var AssetsPlugin = require('assets-webpack-plugin');
 var StatsPlugin = require('stats-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -109,18 +111,13 @@ if (process.env.NODE_ENV === 'development') {//开发配置
   plugins = plugins.concat([
     //优化chunck的ID长度
     new webpack.optimize.OccurenceOrderPlugin(),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //     name: 'vendors',
-    //     chunks: ['entryA','entryB','entryC'],
-    //     // Modules must be shared between all entries
-    //     // 提取所有chunks共同依赖的模块
-    //     minChunks: 3 
-    // }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //     name: 'vendors2',
-    //     chunks: ['entryA','entryB'],
-    //     minChunks: 2
-    // }),
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendors',
+        chunks: ['entryA','entryB','entryC'],
+        // Modules must be shared between all entries
+        // 提取所有chunks共同依赖的模块
+        minChunks: 3 
+    }),
     //最小化JS
     new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
     //styles/[id]_[name]_[hash:8].min.css 这个是提取后的CSS文件相对

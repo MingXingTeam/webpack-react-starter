@@ -38,6 +38,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf assets && rm -rf build && rm -rf webpack-assets.json",
     "start": "node-dev server.js",
+    "webpack-dev": "gulp clean && webpack --config webpack.config.js --colors --hide-modules --watch",
     "webpack-dev-server": "gulp clean && webpack-dev-server",
     "dev": "NODE_DEV=development && gulp dev",
     "release": "NODE_DEV=production && gulp release"
