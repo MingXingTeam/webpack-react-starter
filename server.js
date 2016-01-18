@@ -6,17 +6,21 @@ process.env.NODE_ENV = 'development';
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 
+//也会用webpack.config.js文件 只不过相当于用webpack-dev-server
 new WebpackDevServer(webpack(config), {
-  //监听目录：JS文件改变了后会重新编译打包 相当于webpack的--watch命令
-  //打包后的bundle是在内存中的
   //假定publicPath是assets,则
-  //浏览器可以直接访问打包后的bundle：localhost:8080/assets/bundle.js
+  //浏览器可以直接访问打包后的bundle：localhost:8080/assets/bundle.js或者页面
   //要使用bundle.js必须在assets里面创建静态页面引用bundle。
+  //直接node server.js启动默认端口是3000
   //然后浏览器可以直接访问这个静态页面
   publicPath: config.output.publicPath,
-  //模块热加载HMR：是webpack-dev-server --hot命令
+  //监听目录：文件改变了后会重新编译打包 相当于webpack的--watch命令
+  //打包后的bundle是在内存中的
+  //HMR 如果是react组件会自动将更新映射到浏览器
+  //(works with any file that is required with Webpack) 
+  //但是html静态页面(webpack没有require过的)更改不会自动将更新映射到浏览器
   //@see https://webpack.github.io/docs/webpack-dev-server.html
   hot: true,
   stats: {
