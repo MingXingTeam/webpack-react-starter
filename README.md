@@ -1,5 +1,4 @@
 # webpack-react-starter 
---------------------------
 
 A webpack-react-starter build with React and Webpack and Gulp
 
