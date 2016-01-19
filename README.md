@@ -40,10 +40,11 @@ process.env.NODE_ENV = 'production';
 
 + 调试方法：source-map使用
 + angular
-+ react
-+ html自动刷新
++ html entry不自动刷新
 + webpack-assets.json 格式不对
 + stats.json 格式不对
++ gulp clean任务分割
++ `gulp dev` 命令 原文件没有删除
 + console warn: a promise was created in a handler but none were returned from it
 + GET http://127.0.0.1:8080/scripts/entryB.js
 
