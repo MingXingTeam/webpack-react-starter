@@ -47,6 +47,8 @@ process.env.NODE_ENV = 'production';
 + `gulp dev` 命令 原文件没有删除
 + console warn: a promise was created in a handler but none were returned from it
 + GET http://127.0.0.1:8080/scripts/entryB.js
++ source-map eval-source-map优化问题
++ 修改某个模块后是否全部模块都重新编译？
 
 
 ## contributions
