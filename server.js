@@ -6,7 +6,7 @@ process.env.NODE_ENV = 'development';
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 
 //也会用webpack.config.js文件 只不过相当于用webpack-dev-server
 new WebpackDevServer(webpack(config), {

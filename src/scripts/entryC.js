@@ -5,6 +5,7 @@ var Hello = require("./components/hello.jsx");
 
 var React = require("react");
 var ReactDom = require("react-dom");
-var a =1;
+var a =13;
 ReactDom.render(<Hello />,document.getElementById("content"));
 
+document.getElementById("test").innerHTML = "111";

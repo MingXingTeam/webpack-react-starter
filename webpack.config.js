@@ -1,11 +1,7 @@
 'use strict';
 //solve unexpected-token problem
 //@see http://stackoverflow.com/questions/33460420/babel-loader-jsx-syntaxerror-unexpected-token?answertab=votes#tab-top
-
-//temp: windows环境不支持NODE_ENV变量
-// process.env.NODE_ENV = 'development';
-process.env.NODE_ENV = 'production';
-
+process.env.NODE_ENV = 'development';
 var webpack = require('webpack');
 var path = require('path');
 var fs = require('fs');
@@ -22,7 +18,7 @@ var sassLoader;
 //@see https://github.com/webpack/webpack-dev-server/issues/326
 //必须改为8080 当用npm run webpack-dev-server(node server.js默认是3000端口)启动的时候
 //否则控制台报错 [WS] Disconnected, net::ERR_CONNECTION_REFUSED
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 var devtool;
 var output;
 var plugins = [
@@ -32,9 +28,9 @@ var plugins = [
   })
   ];
 var entry = {
-    'entryA': './src/scripts/entryA.js',
-    'entryB': './src/scripts/entryB.js',
-    'entryC': './src/scripts/entryC.js'
+    'entryA': './src/scripts/entryA.js'
+    // ,
+    // 'b': './test/webpack/ex92/b.js'
     // ,
     // 'hello': './src/scripts/components/hello.jsx'
 }
@@ -59,9 +55,9 @@ if (process.env.NODE_ENV === 'development') {//开发配置
     //打包后的chunk名字：id是chunk的id
     chunkFilename: '[id]_[hash:8].chunk.js',
     // hotUpdateChunkFilename: 'hot.[id]_[hash].bundle.js',
-    //webpack-dev-server（也会打包成bundle并且会监听这个目录 但是bundle并不放到这个目录下是在内存中）
-    //的目录
-    publicPath: '/build'
+    //webpack-dev-server（也会打包成bundle并且会监听这个目录 
+    //但是bundle并不放到这个目录下是在内存中）的目录
+    publicPath: '/'
   }
 
   plugins = plugins.concat([
@@ -109,15 +105,18 @@ if (process.env.NODE_ENV === 'development') {//开发配置
     publicPath: ''
   }
   plugins = plugins.concat([
+    //@see  https://webpack.github.io/docs/list-of-plugins.html
+    //Search for equal or similar files and deduplicate them in the output
+    new webpack.optimize.DedupePlugin(),
     //优化chunck的ID长度
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendors',
-        chunks: ['entryA','entryB','entryC'],
-        // Modules must be shared between all entries
-        // 提取所有chunks共同依赖的模块
-        minChunks: 3 
-    }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //     name: 'vendors',
+    //     chunks: ['entryA','entryB','entryC'],
+    //     // Modules must be shared between all entries
+    //     // 提取所有chunks共同依赖的模块
+    //     minChunks: 3 
+    // }),
     //最小化JS
     new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
     //styles/[id]_[name]_[hash:8].min.css 这个是提取后的CSS文件相对
@@ -170,11 +169,13 @@ module.exports = {
   output: output,
   module: {
     //@see https://webpack.github.io/docs/list-of-loaders.html
-    loaders: [{
-        test: /\.jsx?$/,
-        exclude: /assets|build|lib|bower_components|node_modules/,
-        loaders: jsxLoaders
-      },{
+    loaders: [
+      // {
+      //   test: /\.jsx?$/,
+      //   exclude: /assets|build|lib|bower_components|node_modules/,
+      //   loaders: jsxLoaders
+      // },
+      {
           test: /\.css$/,
           //提取JS里面的样式到chunk并且压缩
           loader: cssLoader
@@ -207,9 +208,9 @@ module.exports = {
         loader: 'ejs'
       },
     ],
-    // preLoaders: [
-    //   {test: /\.jsx?$/, loader: 'eslint', exclude: /build|lib|bower_components|node_modules/},
-    // ],
+    preLoaders: [
+      {test: /\.jsx?$/, loader: 'eslint', include: /src/},
+    ],
     //With noParse you can exclude big libraries from parsing, but this can break stuff.
     //@see https://webpack.github.io/docs/build-performance.html
     noParse: [
@@ -222,4 +223,6 @@ module.exports = {
   },
   plugins: plugins,
   devtool: devtool
+  // ,
+  // eslint: {configFile: '.eslintrc'},
 }
