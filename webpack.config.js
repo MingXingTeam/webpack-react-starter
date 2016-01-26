@@ -57,7 +57,7 @@ if (process.env.NODE_ENV === 'development') {//开发配置
     // hotUpdateChunkFilename: 'hot.[id]_[hash].bundle.js',
     //webpack-dev-server（也会打包成bundle并且会监听这个目录 
     //但是bundle并不放到这个目录下是在内存中）的目录
-    publicPath: '/'
+    publicPath: '/build'
   }
 
   plugins = plugins.concat([
