@@ -1,10 +1,11 @@
-var React = require("react");
+let React = require("react");
 
-var Hello = React.createClass({
+let Hello = React.createClass({
 	render: function(){
-		return (<div>Hello
-			llllasaaa Webpack</div>);
+		return (
+			<div> Hello Webpack </div>
+			);
 	}
-})
+});
 
 module.exports = Hello;

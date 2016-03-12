@@ -50,6 +50,19 @@ process.env.NODE_ENV = 'production';
 + source-map eval-source-map优化问题
 + 修改某个模块后是否全部模块都重新编译？
 
+## 常见错误
+
+1. error Parsing error: Unexpected token <
+关闭eslint或者在.eslint中加上
+// I want to use babel-eslint for parsing!
+  "parser": "babel-eslint",
+2. Configuration for rule "no-labels" is invalid]
+Try updating eslint: npm install eslint@2.0.0-rc.0.
+3.Error: Cannot find module 'doctrine'
+npm i doctrine
+4. Cannot find module 'minimatch'
+npm i minimatch
+
 
 ## contributions
 

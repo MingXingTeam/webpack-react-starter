@@ -102,7 +102,7 @@ if (process.env.NODE_ENV === 'development') {//开发配置
     chunkFilename: 'scripts/[id]_[hash:8].chunk.min.js',
     // hotUpdateChunkFilename: 'hot.[id]_[hash].bundle.js',
     // 不需要
-    publicPath: ''
+    publicPath: '/assets'
   }
   plugins = plugins.concat([
     //@see  https://webpack.github.io/docs/list-of-plugins.html
@@ -170,11 +170,11 @@ module.exports = {
   module: {
     //@see https://webpack.github.io/docs/list-of-loaders.html
     loaders: [
-      // {
-      //   test: /\.jsx?$/,
-      //   exclude: /assets|build|lib|bower_components|node_modules/,
-      //   loaders: jsxLoaders
-      // },
+      {
+        test: /\.jsx?$/,
+        exclude: /assets|build|lib|bower_components|node_modules/,
+        loaders: jsxLoaders
+      },
       {
           test: /\.css$/,
           //提取JS里面的样式到chunk并且压缩
@@ -217,12 +217,11 @@ module.exports = {
       path.join(__dirname, 'node_modules', 'babel-core', 'browser.min.js')
     ],
   },
-  //require的时候可以不带后缀
+  //寻找模块的时候找根目录以及以js和jsx等为后缀的文件
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
   plugins: plugins,
   devtool: devtool
-  // ,
-  // eslint: {configFile: '.eslintrc'},
+  ,eslint: {configFile: '.eslintrc'}
 }
